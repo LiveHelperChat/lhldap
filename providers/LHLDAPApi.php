@@ -50,7 +50,7 @@ class LHLDAPApi {
             return throw new \Exception(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'To mane record found with username. One record is expected.'));
         } else if ( is_array( $userinfo[0] ) ) {
             if ( !$password ) {
-                return $userinfo[0] ;
+                throw new \Exception(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'Password is required for authentication.'));
             } else if ( isset( $userinfo[0]['dn'] ) ) {
                 $userdn = $userinfo[0]['dn'] ;
                 $result = @ldap_bind( self::getConnection(), $userdn, $password );
