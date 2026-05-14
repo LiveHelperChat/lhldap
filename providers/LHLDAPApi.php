@@ -42,7 +42,7 @@ class LHLDAPApi {
 
         $uid = isset( $ldap_options["ldap_uid_attr"] ) ? $ldap_options["ldap_uid_attr"] : "uid" ;
 
-        $result = ldap_search( self::getConnection(), $ldap_options["ldap_base_dn"], $uid."=".$login ) or self::getError(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'Invalid username or password!'));
+        $result = ldap_search( self::getConnection(), $ldap_options["ldap_base_dn"], $uid."=".ldap_escape($login, '', LDAP_ESCAPE_FILTER) ) or self::getError(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'Invalid username or password!'));
         $userinfo = ldap_get_entries( self::getConnection(), $result ) or self::getError(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'Invalid username or password!'));
         $found = ldap_count_entries( self::getConnection(), $result ) or self::getError(\erTranslationClassLhTranslation::getInstance()->getTranslation('lhldap/module', 'Invalid username or password!'));
 
